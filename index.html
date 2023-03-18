@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slimVue2.x</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "observe": "./vue/observe.js",
+        "watcher": "./vue/watcher.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  
+  <div id="app">
+    <h1>标题</h1>
+    <p id="title">{{ title }}</p>
+    <h1>消息</h1>
+    <p id="message">{{ message }}</p>
+    <h1>描述</h1>
+    <p id="des">{{ des }}</p>
+  </div>
+
+  <script type="module">
+    import {observe} from 'observe'
+    import Watcher from 'watcher'
+
+
+    // function myVue (options) {
+      
+    //   observe(options)
+
+    // }
+
+    let data = {
+      title: 'jjjjjj',
+      message: 'xxxxxx',
+      dec: 'yyyyyy'
+    }
+    window.data = data
+    observe(data)
+
+    function setText (id, value) {
+      document.getElementById(id).innerHTML = value
+    }
+
+    setText('title', data.title)
+    new Watcher(data, 'title', function(newVal) {
+      setText('title', newVal)
+    })
+
+    setText('message', data.message)
+    new Watcher(data, 'message', function(newVal) {
+      setText('message', newVal)
+    })
+
+    setText('des', data.dec)
+    new Watcher(data, 'dec', function(newVal) {
+      setText('des', newVal)
+    })
+
+
+  </script>
+</body>
+</html>
